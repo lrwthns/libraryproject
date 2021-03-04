@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <div id="display">There is 0 book.
+            <button id="deleteBook">Delete Book</button>
+        </div>
+        <form id="form">
+            <div>
+                <label for="bTitle">Title:</label><br>
+                <input type="text" id="bookTitle" name="bTitle" placeholder="Book Title" required>
+            </div>
+            <div>
+                <label for="bAuthor">Author:</label><br>
+                <input type="text" id="bookAuthor" name="bAuthor" placeholder="Author Name" required>
+            </div>
+           
+            <div>
+                <label for="bPages">Number of Pages:</label><br>
+                <input type="text" id="bookPages" name="bPages" placeholder="Number of Pages" required><br>    
+            </div>
+           <div>
+                <label for="bHaveFinished">Have you finished the book?</label>
+                <input type="checkbox" id="bookHaveFinished" name="bHaveFinished"><br>
+            </div>
+            <div>
+                <input type="submit" id="submit">
+            </div>
+        </form>
+        <div>
+            <button id="newBook">Add New Book</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
