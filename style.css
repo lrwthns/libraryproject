@@ -15,7 +15,7 @@ body {
     margin: 0.5rem 0rem;
 }
 
-#newBook, #submit, #deleteBook {
+#newBook, #submit, .deleteBook {
     border: none;
     font-size: 1.5rem;
     padding: 0.5rem 1rem;
@@ -30,7 +30,16 @@ body {
     margin: 2rem 0rem;
 }
 
-#display {
+#display-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.bookDisplay {
+    background-color: rgb(117, 56, 122);
+    width: 23rem;
+    height: 15rem;
     font-size: 2rem;
-    margin: 2rem 0rem;
+    padding: 1rem;
+    margin: 2rem 2rem;
 }

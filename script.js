@@ -1,18 +1,17 @@
-let newBook = document.querySelector('#newBook');
-let bookDisplay = document.querySelector('#display');
+let newBookButton = document.querySelector('#newBook');
+let displayContainer = document.querySelector('#display-container');
 let form = document.querySelector('#form');
 let submitForm = document.querySelector('#submit');
 let deleteBook = document.querySelector('#deleteBook');
 let myLibrary = [];
 
 //hides the form before it's toggled on
-deleteBook.style.display = 'none';
 form.style.display = 'none';
 
 //toggles the form
-newBook.addEventListener('click', () => {
+newBookButton.addEventListener('click', () => {
     form.style.display = 'block';
-    newBook.style.display = 'none';
+    newBookButton.style.display = 'none';
 })
 
 //the constructor that creates the book object instances
@@ -25,7 +24,7 @@ function Book(title, author, numOfPages, readStatus) {
 
 //prints info that will be put on the book display
 Book.prototype.info = function() {
-    return this.title+ ' by ' + this.author + ', ' + this.numOfPages + ' pages, ' + this.readStatus;
+   return this.title+ ' by ' + this.author + ', ' + this.numOfPages + ' pages, ' + this.readStatus;
 }
 
 //add the book object into the myLibrary array
@@ -35,13 +34,37 @@ function addBookToLibrary(book) {
 }
 
 //display myLibrary array
-function displayBook(library) {
-    let txt = '';
-    let bookProp;
-    for (let i = 0; i < library.length; i++) {
-            txt += library[i].info() + ' ';
+function displayBook(arr) {
+    while (displayContainer.firstChild) {
+        displayContainer.removeChild(displayContainer.firstChild);
     }
-    return bookDisplay.innerHTML = txt;
+    for (let i = 0; i < arr.length; i++) {
+        console.log(arr[i]);
+        let newBookDisplayDiv = document.createElement('div');
+        let txt = '';
+        newBookDisplayDiv.classList.add('bookDisplay');
+        displayContainer.appendChild(newBookDisplayDiv);
+        txt += arr[i].info();
+        newBookDisplayDiv.innerHTML = txt;
+    }
+}
+
+//saves myLibrary to the local storage
+function populateStorage(arr) {
+    localStorage.setItem('savedLibrary', JSON.stringify(arr));
+}
+
+//checks if books have been added
+function checkLocalStorage() {
+    if (localStorage.length > 0) {
+        let arr = localStorage.getItem('savedLibrary');
+        let retrievedLibrary = JSON.parse(arr);
+        for (let i = 0; i < retrievedLibrary.length; i++) {
+            let newBookObject = new Book(retrievedLibrary[i].title, retrievedLibrary[i].author, retrievedLibrary[i].numOfPages, retrievedLibrary[i].readStatus);
+            addBookToLibrary(newBookObject);
+        }
+        return displayBook(myLibrary);
+    }
 }
 
 //where input is processed after user clicks submit
@@ -63,11 +86,11 @@ submitForm.addEventListener('click', (ev) => {
     //creates a new book object instance
     let submitBook = new Book(bookTitle, bookAuthor, bookPages, bookHaveFinished);
     addBookToLibrary(submitBook);
+    populateStorage(myLibrary);
     displayBook(myLibrary);
     form.style.display = 'none';
-    newBook.style.display = 'block';
+    newBookButton.style.display = 'block';
 })
-
 
 //const walden = new Book('Walden', 'Thoreau', 265, 'is not finished.');
 //const selfReliance = new Book('Self-Reliance', 'Ralph Waldo Emerson', 30, 'is finished.')
