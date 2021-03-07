@@ -41,11 +41,30 @@ function displayBook(arr) {
     for (let i = 0; i < arr.length; i++) {
         console.log(arr[i]);
         let newBookDisplayDiv = document.createElement('div');
+        let deleteButton = document.createElement('button');
+        let toggleReadStatus = document.createElement('button');
         let txt = '';
         newBookDisplayDiv.classList.add('bookDisplay');
+        deleteButton.classList.add('deleteBook');
+        toggleReadStatus.classList.add('readStatus');
         displayContainer.appendChild(newBookDisplayDiv);
         txt += arr[i].info();
         newBookDisplayDiv.innerHTML = txt;
+        newBookDisplayDiv.appendChild(deleteButton);
+        newBookDisplayDiv.appendChild(toggleReadStatus);
+        deleteButton.innerHTML = 'Delete Book';
+        toggleReadStatus.innerHTML = 'Not Read';
+        deleteButton.addEventListener('click', () => {
+            arr.splice(i, 1);
+            populateStorage(myLibrary);
+            return displayBook(myLibrary);
+        })
+        toggleReadStatus.addEventListener('click', () => {
+            if (toggleReadStatus.innerHTML == 'Not Read') {
+                return toggleReadStatus.innerHTML = 'Read';
+            }
+            return toggleReadStatus.innerHTML = 'Not Read';
+        })
     }
 }
 
@@ -65,6 +84,13 @@ function checkLocalStorage() {
         }
         return displayBook(myLibrary);
     }
+}
+
+function resetForm() {
+    document.querySelector('#bookTitle').value = '';
+    document.querySelector('#bookAuthor').value = '';
+    document.querySelector('#bookPages').value = '';
+    document.querySelector('#bookHaveFinished').value = '';
 }
 
 //where input is processed after user clicks submit
@@ -90,7 +116,5 @@ submitForm.addEventListener('click', (ev) => {
     displayBook(myLibrary);
     form.style.display = 'none';
     newBookButton.style.display = 'block';
+    resetForm();
 })
-
-//const walden = new Book('Walden', 'Thoreau', 265, 'is not finished.');
-//const selfReliance = new Book('Self-Reliance', 'Ralph Waldo Emerson', 30, 'is finished.')
