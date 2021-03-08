@@ -23,7 +23,9 @@ function Book(title, author, numOfPages, readStatus) {
 
 //prints info that will be put on the book display
 Book.prototype.info = function() {
-   return `${this.title} by ${this.author} ${this.numOfPages} pages`;
+   return this.title +
+   ' by ' + this.author + ' ' +
+   this.numOfPages + ' pages';
 }
 
 //adds the book object into the myLibrary array
@@ -33,10 +35,12 @@ function addBookToLibrary(book) {
 }
 
 //sets initial read status
-function toggleReadStatusText (prop, textbox) {
+function toggleReadStatusText (prop, textbox, display) {
     if (prop == false) {
+        display.classList.add('bookDisplay');
         textbox.innerHTML = 'Not Read';
     } else {
+        display.classList.add('bookDisplayRead');
         textbox.innerHTML = 'Read';
     }
 }
@@ -55,7 +59,6 @@ function displayBook(arr) {
         let deleteButton = document.createElement('button');
         let toggleReadStatus = document.createElement('button');
         //add class for each new element
-        newBookDisplayDiv.classList.add('bookDisplay');
         textArea.classList.add('displayText');
         deleteButton.classList.add('deleteBook');
         toggleReadStatus.classList.add('readStatus');
@@ -73,15 +76,19 @@ function displayBook(arr) {
             return displayBook(myLibrary);
             }
         })    
-        toggleReadStatusText(arr[i].readStatus, toggleReadStatus);
+        toggleReadStatusText(arr[i].readStatus, toggleReadStatus, newBookDisplayDiv);
         toggleReadStatus.addEventListener('click', () => {
             if (toggleReadStatus.innerHTML == 'Not Read') {
                 arr[i].readStatus = true;
                 populateStorage(myLibrary);
+                newBookDisplayDiv.classList.remove('bookDisplay');
+                newBookDisplayDiv.classList.add('bookDisplayRead');
                 return toggleReadStatus.innerHTML = 'Read';
             } else {
                 arr[i].readStatus = false;
                 populateStorage(myLibrary);
+                newBookDisplayDiv.classList.remove('bookDisplayRead');
+                newBookDisplayDiv.classList.add('bookDisplay');
                 return toggleReadStatus.innerHTML = 'Not Read';
             }
         })
