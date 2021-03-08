@@ -67,15 +67,23 @@ function displayBook(arr) {
         newBookDisplayDiv.appendChild(toggleReadStatus);
         deleteButton.innerHTML = 'Delete Book';
         deleteButton.addEventListener('click', () => {
+            if (confirm('Are you sure you want to delete this book?')) {
             arr.splice(i, 1);
             populateStorage(myLibrary);
             return displayBook(myLibrary);
+            }
         })    
         toggleReadStatusText(arr[i].readStatus, toggleReadStatus);
         toggleReadStatus.addEventListener('click', () => {
             if (toggleReadStatus.innerHTML == 'Not Read') {
+                arr[i].readStatus = true;
+                populateStorage(myLibrary);
                 return toggleReadStatus.innerHTML = 'Read';
-            } return toggleReadStatus.innerHTML = 'Not Read';
+            } else {
+                arr[i].readStatus = false;
+                populateStorage(myLibrary);
+                return toggleReadStatus.innerHTML = 'Not Read';
+            }
         })
     }
 }
