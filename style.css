@@ -68,11 +68,11 @@ label {
 .bookDisplay, .bookDisplayRead {
     font-family: Karla;
     font-weight: 200;
-    background-color: rgb(125, 168, 155);
+    background-color: rgb(108, 167, 149);
     width: 23rem;
     height: 15rem;
-    font-size: 2rem;
-    padding: 1rem;
+    font-size: 1.8rem;
+    padding: 2rem;
     margin: 2rem 2rem;
     border-radius: 1rem;
 }

@@ -23,9 +23,9 @@ function Book(title, author, numOfPages, readStatus) {
 
 //prints info that will be put on the book display
 Book.prototype.info = function() {
-   return this.title +
-   ' by ' + this.author + ' ' +
-   this.numOfPages + ' pages';
+    if (this.numOfPages > 0) {
+   return this.title + '<br>' + ' by ' + this.author + '<br>' + this.numOfPages + ' pages';
+    } return this.title + '<br>' + ' by ' + this.author + '<br>';
 }
 
 //adds the book object into the myLibrary array
