@@ -14,19 +14,21 @@ newBookButton.addEventListener('click', () => {
 })
 
 //the constructor that creates the book object instances
-function Book(title, author, numOfPages, readStatus) {
-    this.title = title
-    this.author = author
-    this.numOfPages = numOfPages
-    this.readStatus = readStatus
-}
-
-//prints info that will be put on the book display
-Book.prototype.info = function() {
-    if (this.numOfPages > 0) {
-   return this.title + '<br>' + ' by ' + this.author + '<br>' + this.numOfPages + ' pages';
-    } return this.title + '<br>' + ' by ' + this.author + '<br>';
-}
+class Book {
+    constructor(title, author, numOfPages, readStatus) {
+        this.title = title
+        this.author = author
+        this.numOfPages = numOfPages
+        this.readStatus = readStatus
+        }
+    //prints info that will be put on the book display
+    info() {
+        if (this.numOfPages > 0) {
+            return this.title + '<br>' + ' by ' + this.author + '<br>' + this.numOfPages + ' pages';
+        } 
+        return this.title + '<br>' + ' by ' + this.author + '<br>'; 
+        }
+    }
 
 //adds the book object into the myLibrary array
 function addBookToLibrary(book) {
